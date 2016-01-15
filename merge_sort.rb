@@ -1,17 +1,18 @@
 def merge_sort(arr)
 	l = arr.length
 	return arr if l == 1
-	if l > 1 
-		b = arr.slice!(0...l/2)
-		#print "b = #{b}"
-		c = arr.map{|x| x}
-		merge_sort[b] 
-		merge_sort[c]
-		merge(b,c,arr)
+	if l > 1 		
+		b = arr[0...l/2]
+		c = arr[l/2..-1]
+		b = merge_sort(b)
+		c = merge_sort(c)
+		a = merge(b,c)
 	end
+	return a
 end
 
-def merge(b, c, arr)
+def merge(b, c)
+	arr = []
 	b_ind = 0
 	c_ind = 0
 	arr_ind = 0
@@ -37,10 +38,13 @@ def merge(b, c, arr)
 			arr_ind += 1
 		end
 	end
+	return arr
 end
 
-arr = [1,2,3,4,5,6,8,7]
+puts "enter several numbers"
+arr = gets.chomp.split(" ").map!{|x| x.to_i}
 
-merge_sort(arr)
+a = merge_sort(arr)
 
-print arr
+print a
+puts ""
